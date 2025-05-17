@@ -1,4 +1,4 @@
-
+[![Build Status](https://vijaygangwar.visualstudio.com/dotnet-core-first-pipeline/_apis/build/status%2Fjfsom.pipelines-dotnet-core-first-pipeline?branchName=master)](https://vijaygangwar.visualstudio.com/dotnet-core-first-pipeline/_build/latest?definitionId=14&branchName=master)
 
 # Sample ASP.NET Core application for Azure Pipelines docs
 
