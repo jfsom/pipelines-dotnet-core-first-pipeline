@@ -1,8 +1,8 @@
-pool:
-  vmImage: 'ubuntu-latest'
-
 jobs:
-- job: BuildAndTest
+- job: Build
   steps:
-  - script: echo "Building the application"
-  - script: echo "Running tests"
+  - bash: echo "Building"
+
+- job: Test
+  steps:
+  - bash: echo "Testing"
