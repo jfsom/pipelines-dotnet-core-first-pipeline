@@ -28,7 +28,7 @@ stages:
     - script: |
         echo "Running unit tests..."
       displayName: 'Run unit tests'     
-      
+
 - stage: DeployToStaging
   displayName: 'Deploy to Staging'
   dependsOn: Test
@@ -53,3 +53,27 @@ stages:
         notifyUsers: user@example.com
         instructions: 'Please validate the stage configuration and resume'
         onTimeout: 'resume'
+- stage: DeployToProduction
+  displayName: 'Deploy to Production'
+  dependsOn: DeployToStaging
+  lockBehavior: sequential
+  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/release'))
+  jobs:
+  - job: DeployProductionJob
+    displayName: 'Deploy to Production Job'
+    steps:
+    - script: |
+        echo "Deploying to production..."
+        # Add your deployment commands here
+      displayName: 'Run deployment commands'
+  - job: waitForValidation
+    displayName: Wait for external validation
+    pool: server
+    timeoutInMinutes: 4320 # job times out in 3 days
+    steps:
+    - task: ManualValidation@1
+      timeoutInMinutes: 1440 # task times out in 1 day
+      inputs:
+        notifyUsers: user@example.com
+        instructions: 'Please validate the build configuration and resume'
+        onTimeout: 'resume'  
