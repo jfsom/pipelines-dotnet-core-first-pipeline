@@ -1,8 +1,28 @@
-jobs:
-- job: Build
-  steps:
-  - bash: echo "Building"
+stages:
+- stage: A
+  displayName: "Stage A - Build and Test"
+  jobs:
+  - job: A1
+    displayName: "Job A1 - build"
+    steps:
+    - script: echo "Building the application in Job A1"
+      displayName: "Build step"
+  - job: A2
+    displayName: "Job A2 - Test"
+    steps:
+    - script: echo "Running tests in Job A2"
+      displayName: "Test step"
 
-- job: Test
-  steps:
-  - bash: echo "Testing"
+- stage: B
+  displayName: "Stage B - Deploy"
+  jobs:
+  - job: B1
+    displayName: "Job B1 - Deploy to Staging"
+    steps:
+    - script: echo "Deploying to staging in Job B1"
+      displayName: "Staging deployment step"
+  - job: B2
+    displayName: "Job B2 - Deploy to Production"
+    steps:
+    - script: echo "Deploying to production in Job B2"
+      displayName: "Production deployment step"
