@@ -1,16 +1,15 @@
-stages:
-- stage: Development
-  displayName: Deploy to development
-  jobs:
-  - job: DeployJob
-    steps:
-    - script: echo 'hello, world'
-      displayName: 'Run script'
-- stage: Production
-  displayName: Deploy to production
-  trigger: manual
-  jobs:
-  - job: DeployJob
-    steps:
-    - script: echo 'hello, world'
-      displayName: 'Run script'
+jobs:
+  # Track deployments on the environment.
+- deployment: DeployWeb
+  displayName: deploy Web App
+  pool:
+    vmImage: 'ubuntu-latest'
+  # Creates an environment if it doesn't exist.
+  environment: 'smarthotel-dev'
+  strategy:
+    # Default deployment strategy, more coming...
+    runOnce:
+      deploy:
+        steps:
+        - checkout: self 
+        - script: echo my first deployment
